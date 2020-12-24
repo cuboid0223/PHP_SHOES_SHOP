@@ -52,8 +52,6 @@ button, input {
   width: 25%;
   height: 300px;
   padding: 1rem;
-  -webkit-box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
-          box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
 }
 
 .main .card__wrap {
@@ -94,8 +92,8 @@ button, input {
 }
 
 .main .card:hover {
-  -webkit-box-shadow: 10px 15px 17px -100px rgba(0, 0, 0, 0.75);
-          box-shadow: 10px 15px 17px -100px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
 }
 
 .sidebar {

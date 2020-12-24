@@ -1,6 +1,6 @@
 <?php
 require_once "conn_db.php";
-
+session_start();
 $sql = "
         SELECT SH_name, SH_price, SH_imgURL, BRN_name, us, CAT_name, CUS_type
         FROM SHOES AS a
@@ -9,7 +9,7 @@ $sql = "
         LEFT JOIN CATEGORIES AS d ON a.CAT_id=d.CAT_id   
         LEFT JOIN CUSTOMERS AS e ON a.CUS_id=e.CUS_id 
         ";
-session_start();
+
 
 // 搜尋欄 finished
 if(isset($_POST['search__submit'])){
@@ -19,7 +19,14 @@ if(isset($_POST['search__submit'])){
 
     if(!empty($_POST['q'])){// 如果搜尋欄有輸入字
         $q = $_POST['q'];
-        $sql .= " where BRN_name like '%$q%'" ;
+        $sql .= 
+        " 
+        WHERE 
+            SH_name LIKE '%$q%' or
+            BRN_name LIKE '%$q%' or
+            CAT_name LIKE '%$q%' or
+            CUS_type LIKE '%$q%'   
+        " ;
         $_SESSION['Query'] = $q; //將該字放入 session
     } 
 
@@ -35,13 +42,6 @@ if(isset($_POST['search__submit'])){
    
 };
 
-// 性別
-if(isset($_POST['search__submit__sql'])){
-    
-
-}
-
-
 
 // Price
 if(isset($_POST['minPrice']) or isset($_POST['maxPrice'])){
@@ -52,11 +52,20 @@ if(isset($_POST['minPrice']) or isset($_POST['maxPrice'])){
 
 
 
-if(isset($_POST['q-sql'])){// sql語法欄
+if(isset($_POST['search__submit__sql'])){// sql語法欄
     $q_sql = $_POST['q-sql'];
-    $statement = $connection -> prepare($q_sql);
-    $statement -> execute();
-    $items = $statement -> fetchAll(PDO::FETCH_OBJ);
+    //echo $q_sql;
+    try{
+        $statement = $connection -> prepare($q_sql) or die("Unable to connect to site");
+        $statement -> execute();
+        $items = $statement -> fetchAll(PDO::FETCH_OBJ);
+        //print_r($items);
+       
+        $_SESSION['Items'] = $items;
+         header("Location: searchPage.php");
+    }catch(PDOException $e){
+        echo $e;// show the error 
+    }
 };
 
 

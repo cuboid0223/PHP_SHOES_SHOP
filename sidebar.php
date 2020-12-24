@@ -69,12 +69,12 @@ $brands = $stmt2 -> fetchAll(PDO::FETCH_OBJ);
    
 
     <!-- SQL搜尋  -->
-    <from class="sidebar__form__sql" method="POST" action="search.php">
+    <form class="sidebar__form__sql" method="POST" action="search.php">
         <textarea type="text" class="search__textarea" placeholder="查詢 SQL" name='q-sql'></textarea>
         <div class="search__form__sql__wrap">
             <button type="submit" class="search__btn" name='search__submit__sql'>
                 GO
             </button>
         </div>  
-    </from>
+    </form>
 </div>
