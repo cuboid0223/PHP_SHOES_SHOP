@@ -24,37 +24,45 @@ if(isset($_POST['search__submit'])){
     
     if(!empty($_POST['q'])){// 如果搜尋欄有輸入字
         $q = $_POST['q'];
+        setcookie("query", $q, time()+1);
         $q_sql = "  SH_name LIKE '%$q%' or
-                    BRN_name LIKE '%$q%' or
-                    CUS_type LIKE '%$q%'
+                    BRN_name LIKE '$q%' or
+                    CUS_type LIKE '$q%'
         ";
     }
     if(!empty($_POST['brand'])){
         $brand = $_POST['brand'];
+        setcookie("brand", $brand, time()+1);
         $brand_sql = " BRN_name LIKE '%$brand%' ";
     }
     if(!empty($_POST['type'])){
         $type = $_POST['type'];
+        setcookie("type", $type, time()+1);
         $type_sql = " CAT_name = '$type' ";
     }
     if(!empty($_POST['gender'])){
         $gender = $_POST['gender']; // 男 女 童 
+        setcookie("gender", $gender, time()+1);
         $gender_sql = " CUS_type = '$gender' ";
         
     }
     
     if(!empty($_POST['minPrice'])){
         $min = $_POST['minPrice'];
+        setcookie("min", $min, time()+1);
+
         $min_sql = " SH_price > $min ";
     }
     if(!empty($_POST['maxPrice'])){
         $max = $_POST['maxPrice'];
+        setcookie("max", $max, time()+1);
         $max_sql = " SH_price < $max ";
     }
   
 
     if(!empty($_POST['price__Order'])){
         $order = $_POST['price__Order'];
+        setcookie("order", $order, time()+1);
         $order_sql = " ORDER BY SH_price {$order};";
     }
     
@@ -63,7 +71,9 @@ if(isset($_POST['search__submit'])){
     AND {$type_sql} 
     AND {$gender_sql} 
     AND {$min_sql} 
-    AND {$max_sql} {$order_sql}";
+    AND {$max_sql} {$order_sql}
+    LIMIT 8
+    ";
     echo $sql;
 
 

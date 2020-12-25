@@ -13,12 +13,19 @@ $stmt2 = $connection -> prepare($sql2);
 $stmt2 -> execute();
 $brands = $stmt2 -> fetchAll(PDO::FETCH_OBJ);
 
+//print_r($_SESSION['Items'] );
 ?>
 <div class="sidebar">
     <!-- 搜尋欄 -->
     <form class="sidebar__form"  action='search.php' method='POST'>
         <div class="sidebar__searchWrap">
-            <input type="text" class="search__input" placeholder="查詢" name="q">
+            <input 
+            type="text" 
+            class="search__input" 
+            placeholder="<?php 
+            if(!empty($_COOKIE["query"])){echo $_COOKIE["query"];}else{echo "查詢"; }; 
+            ?>" 
+            name="q" >
             <button type="submit" class="search__btn" name='search__submit'>
                     <i class="fas fa-search"></i>
             </button>
@@ -29,15 +36,16 @@ $brands = $stmt2 -> fetchAll(PDO::FETCH_OBJ);
             <div class='maleOrFemale__wrap' id="maleOrFemale__wrap">
                 <input type="checkbox" id="male" name="gender" value="男鞋" >
                 <label for="male">男鞋</label><br>
-                <input type="checkbox" id="female" name="gender" value="女鞋">
+                <input type="checkbox" id="female" name="gender" value="女鞋" >
                 <label for="female">女鞋</label><br>
-                <input type="checkbox" id="child" name="gender" value="童鞋">
+                <input type="checkbox" id="child" name="gender" value="童鞋" >
                 <label for="child">童鞋</label><br>
             </div>
             
             <!-- 鞋種分類 -->
             <h3>鞋種分類</h3>
             <select id="type" name='type'>
+                <option><?= $_COOKIE["type"]; ?></option>
                 <option></option>
                 <?php foreach( $types as $type): ?>
                     <option ><?= $type -> CAT_name  ?></option>
@@ -48,6 +56,7 @@ $brands = $stmt2 -> fetchAll(PDO::FETCH_OBJ);
             <!--品牌  -->
             <h3>品牌分類</h3>
             <select id="brand" name='brand'>
+                <option><?= $_COOKIE["brand"]; ?></option>
                 <option></option>
                 <?php foreach( $brands as $brand): ?>
                     <option ><?= $brand -> BRN_name  ?></option>
@@ -58,18 +67,18 @@ $brands = $stmt2 -> fetchAll(PDO::FETCH_OBJ);
             <!-- 價格 -->
             <h3>價格範圍</h3>
             <div class="price__form__wrap">
-                <input type="text" placeholder='最低' class="price__form__min" name="minPrice">
+                <input type="text" placeholder='最低' class="price__form__min" name="minPrice" value='<?= $_COOKIE['min'];?>'>
                 <pre>～</pre> 
-                <input type="text" placeholder='最高' class="price__form__max" name="maxPrice">
+                <input type="text" placeholder='最高' class="price__form__max" name="maxPrice" value='<?= $_COOKIE['max'];?>'>
             </div>
 
 
-            <input type="checkbox" class="angle__btn" name='price__Order' value='Desc'>
-                <i class="fas fa-angle-double-up"></i>
+            <input type="checkbox" class="angle__btn " name=' price__Order' value='Desc'>
+                <i class="fas fa-angle-double-up <?php if($_COOKIE['order'] == 'Desc') echo 'fas__green';?>"></i>
             </input>
 
-            <input type="checkbox" class="angle__btn" name='price__Order' value='Asc'>
-                <i class="fas fa-angle-double-down"></i>
+            <input type="checkbox" class="angle__btn " name='price__Order' value='Asc'>
+                <i class="fas fa-angle-double-down <?php if($_COOKIE['order'] == 'Asc') echo ' fas__green';?>"></i>
             </input>
             <hr> 
         </div>

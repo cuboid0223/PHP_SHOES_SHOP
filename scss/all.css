@@ -50,7 +50,7 @@ button, input {
 
 .main .card {
   width: 25%;
-  height: 300px;
+  height: 400px;
   padding: 1rem;
 }
 
@@ -195,7 +195,8 @@ button, input {
   padding: 0 10px;
 }
 
-.sidebar__filterWrap .angle__btn > i {
+.sidebar__filterWrap .fas__green {
   font-size: 20px;
+  color: greenyellow;
 }
 /*# sourceMappingURL=all.css.map */

@@ -9,6 +9,7 @@
         LEFT JOIN SHOES_SIZE AS c ON a.SIZ_id=c.SIZ_id   
         LEFT JOIN CATEGORIES AS d ON a.CAT_id=d.CAT_id   
         LEFT JOIN CUSTOMERS AS e ON a.CUS_id=e.CUS_id 
+        LIMIT 8
         ";
         $statement = $connection -> prepare($sql);// ???
         $statement -> execute();// ???
