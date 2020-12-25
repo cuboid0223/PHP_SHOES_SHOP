@@ -13,6 +13,7 @@
         $statement = $connection -> prepare($sql);// ???
         $statement -> execute();// ???
         $items = $statement -> fetchAll(PDO::FETCH_OBJ);// ???
+        $_SESSION['SQL'] = $sql;
         $_SESSION['Items'] = $items;
         //print_r($items);
 
