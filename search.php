@@ -13,12 +13,13 @@ $sql = "
 
 // 搜尋欄 finished
 if(isset($_POST['search__submit'])){
-    $min = $_POST['minPrice'];
-    $max = $_POST['maxPrice'];
+   
     $q_sql = '1 = 1';
     $brand_sql = '1 = 1';
     $type_sql = '1 = 1';
     $gender_sql = '1 = 1';
+    $max_sql = '1 = 1';
+    $min_sql = '1 = 1';
     
     if(!empty($_POST['q'])){// 如果搜尋欄有輸入字
         $q = $_POST['q'];
@@ -37,8 +38,24 @@ if(isset($_POST['search__submit'])){
         $gender_sql = " CUS_type = '$gender' ";
         
     }
+    if( intval($_POST['minPrice']) < intval( $_POST['maxPrice'])){
+        if(!empty($_POST['minPrice'])){
+            $min = $_POST['minPrice'];
+            $min_sql = " SH_price > $min ";
+        }
+        if(!empty($_POST['maxPrice'])){
+            $max = $_POST['maxPrice'];
+            $max_sql = " SH_price < $max ";
+        }
+    }else{
+        $_SESSION['alert'] =  '最大值 一定大於 最小值';
+        // echo '最大值 一定大於 最小值';
+        // echo ''
+    }
     
-    $sql .= "WHERE {$q_sql} AND {$brand_sql} AND {$type_sql} AND {$gender_sql}";
+    
+    
+    $sql .= "WHERE {$q_sql} AND {$brand_sql} AND {$type_sql} AND {$gender_sql} AND {$min_sql} AND {$max_sql}";
     echo $sql;
 
 
