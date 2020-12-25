@@ -13,24 +13,33 @@ $sql = "
 
 // 搜尋欄 finished
 if(isset($_POST['search__submit'])){
-    $male = $_POST['male'];
-    $female = $_POST['female'];
-    $child = $_POST['child'];
-
+    $min = $_POST['minPrice'];
+    $max = $_POST['maxPrice'];
+    $q_sql = '1 = 1';
+    $brand_sql = '1 = 1';
+    $type_sql = '1 = 1';
+    $gender_sql = '1 = 1';
+    
     if(!empty($_POST['q'])){// 如果搜尋欄有輸入字
         $q = $_POST['q'];
-        $sql .= 
-        " 
-        WHERE 
-            SH_name LIKE '%$q%' or
-            BRN_name LIKE '%$q%' or
-            CAT_name LIKE '%$q%' or
-            CUS_type LIKE '%$q%'   
-        " ;
-        $_SESSION['Query'] = $q; //將該字放入 session
-    } 
-
-
+        $q_sql = " SH_name LIKE '%$q%'";
+    }
+    if(!empty($_POST['brand'])){
+        $brand = $_POST['brand'];
+        $brand_sql = " BRN_name = '$brand' ";
+    }
+    if(!empty($_POST['type'])){
+        $type = $_POST['type'];
+        $type_sql = " CAT_name = '$type' ";
+    }
+    if(!empty($_POST['gender'])){
+        $gender = $_POST['gender']; // 男 女 童 
+        $gender_sql = " CUS_type = '$gender' ";
+        
+    }
+    
+    $sql .= "WHERE {$q_sql} AND {$brand_sql} AND {$type_sql} AND {$gender_sql}";
+    echo $sql;
 
 
     $statement = $connection -> prepare($sql);
@@ -38,25 +47,17 @@ if(isset($_POST['search__submit'])){
     $items = $statement -> fetchAll(PDO::FETCH_OBJ);
     $_SESSION['Items'] = $items;
     
-    header("Location: searchPage.php");
+    // header("Location: searchPage.php");
    
 };
 
 
-// Price
-if(isset($_POST['minPrice']) or isset($_POST['maxPrice'])){
-    $min = $_POST['minPrice'];
-    $max = $_POST['maxPrice'];
 
-}
-
-
-
-if(isset($_POST['search__submit__sql'])){// sql語法欄
+if(isset($_POST['search__submit__sql'])){// sql語法欄 finished
     $q_sql = $_POST['q-sql'];
     //echo $q_sql;
     try{
-        $statement = $connection -> prepare($q_sql) or die("Unable to connect to site");
+        $statement = $connection -> prepare($q_sql);
         $statement -> execute();
         $items = $statement -> fetchAll(PDO::FETCH_OBJ);
         //print_r($items);

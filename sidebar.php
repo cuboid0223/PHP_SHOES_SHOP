@@ -26,30 +26,30 @@ $brands = $stmt2 -> fetchAll(PDO::FETCH_OBJ);
         <div class="sidebar__filterWrap">
             <!-- 選擇性別 -->
             <div class='maleOrFemale__wrap'>
-                <input type="checkbox" id="male" name="male" value="male">
+                <input type="checkbox" id="male" name="gender" value="男鞋">
                 <label for="male">男鞋</label><br>
-                <input type="checkbox" id="female" name="female" value="female">
+                <input type="checkbox" id="female" name="gender" value="女鞋">
                 <label for="female">女鞋</label><br>
-                <input type="checkbox" id="child" name="child" value="child">
+                <input type="checkbox" id="child" name="gender" value="童鞋">
                 <label for="child">童鞋</label><br>
             </div>
             
             <!-- 鞋種分類 -->
             <h3>鞋種分類</h3>
-            <select id="type" >
-                <option>選擇鞋種</option>
+            <select id="type" name='type'>
+                <option></option>
                 <?php foreach( $types as $type): ?>
-                    <option><?= $type -> CAT_name  ?></option>
+                    <option ><?= $type -> CAT_name  ?></option>
                 <?php endforeach; ?>
             </select>
             <hr>
 
             <!--品牌  -->
             <h3>品牌分類</h3>
-            <select id="brand" >
-                <option>選擇品牌</option>
+            <select id="brand" name='brand'>
+                <option></option>
                 <?php foreach( $brands as $brand): ?>
-                    <option><?= $brand -> BRN_name  ?></option>
+                    <option ><?= $brand -> BRN_name  ?></option>
                 <?php endforeach; ?>
             </select>
             <hr>
