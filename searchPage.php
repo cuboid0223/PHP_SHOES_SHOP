@@ -23,6 +23,10 @@
                                 <p>$<?= $item -> SH_price; ?></p>
                                 <input type="submit" value="MORE">
                             </div>
+                            <pre><?= $item -> BRN_name; ?></pre>
+                            <pre>US <?= $item -> us; ?></pre>
+                            <pre><?= $item -> CAT_name; ?></pre>
+                            <pre><?= $item -> CUS_type; ?></pre>
                         </div> 
                     </div>
                 <?php endforeach; ?>

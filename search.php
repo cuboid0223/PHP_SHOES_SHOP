@@ -64,7 +64,7 @@ if(isset($_POST['search__submit'])){
     $items = $statement -> fetchAll(PDO::FETCH_OBJ);
     $_SESSION['Items'] = $items;
     
-    // header("Location: searchPage.php");
+    header("Location: searchPage.php");
    
 };
 

@@ -1,6 +1,7 @@
 
-    <?php include_once 'conn_db.php';
-        //$sql = "select * from SHOES";
+    <?php 
+        include_once 'conn_db.php';
+        session_start();   
         $sql = "
         SELECT SH_name, SH_price, SH_imgURL, BRN_name, us, CAT_name, CUS_type
         FROM SHOES AS a
@@ -12,12 +13,13 @@
         $statement = $connection -> prepare($sql);// ???
         $statement -> execute();// ???
         $items = $statement -> fetchAll(PDO::FETCH_OBJ);// ???
+        $_SESSION['Items'] = $items;
         //print_r($items);
 
     ?>
     <div class="main">
         <div class="main__wrap">
-            <?php forEach($items as $item): ?>
+            <?php forEach($_SESSION['Items']  as $item): ?>
                 <div class="card" >
                     <img src="<?= $item -> SH_imgURL; ?>" alt="..." />
                     <div class="card__wrap">

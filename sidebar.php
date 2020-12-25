@@ -25,7 +25,7 @@ $brands = $stmt2 -> fetchAll(PDO::FETCH_OBJ);
         
         <div class="sidebar__filterWrap">
             <!-- 選擇性別 -->
-            <div class='maleOrFemale__wrap'>
+            <div class='maleOrFemale__wrap' id="maleOrFemale__wrap">
                 <input type="checkbox" id="male" name="gender" value="男鞋">
                 <label for="male">男鞋</label><br>
                 <input type="checkbox" id="female" name="gender" value="女鞋">
